@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Hello {{ name }}. I'm {{ age }} years old.</h1>
+    <input type="text" v-model="name">
+    <button @click="handleClick">Click</button>
+    <button @click="age++">increase age</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { ref } from 'vue';
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
+  setup() {
+    let name = ref("KTZ"); // reactive value
+    let age = ref(27);
+
+    let handleClick = () => {
+      name.value = "PTR";
+    };
+    return {name, age, handleClick};
   }
 }
 </script>
