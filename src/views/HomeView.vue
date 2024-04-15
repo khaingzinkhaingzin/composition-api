@@ -5,20 +5,22 @@
       <PostsList :posts="posts"></PostsList>
     </div>
     <div v-else>
-      loading...
+      <Spinner></Spinner>
     </div>
   </div>
 </template>
 
 <script>
+import Spinner from '../components/Spinner'
 import PostsList from '../components/PostsList'
 import getPosts from '../composables/getPosts'
 export default {
-  components: { PostsList },
+  components: {
+    Spinner, PostsList },
   setup() {
     // composable function 
     let {posts, error, load} = getPosts();
-    
+
     load();
 
     return { posts, error };
