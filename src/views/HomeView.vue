@@ -1,27 +1,27 @@
 <template>
   <div class="home">
-    <input type="text" v-model="search">
-    <p>Search item - {{ search }}</p>
-    <div v-for="name in filteredNames" :key="name">
-      {{ name }}
+    <div v-if="showPosts">
+      <PostsList :posts="posts"></PostsList>
     </div>
+
+    <button @click="showPosts=!showPosts">toggle post lists</button>
+    <button @click="posts.pop()">delete</button>
   </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import PostsList from '../components/PostsList'
+import { ref } from 'vue';
 export default {
+  components: { PostsList },
   setup() {
-    let search = ref("");
-    let names = ref(["A", "B", "C", "D"]);
+    let showPosts = ref(true);
+    let posts = ref([
+      {title: "post title 1", body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla exercitationem quae quod. Quos molestiae rem nam quis aperiam, cum veritatis odio necessitatibus, quae voluptatem aut. A eius aspernatur veniam tempore.", id: 1},
+      {title: "post title 2", body: "post body 2", id: 2},
+    ]);
 
-    let filteredNames = computed(() => {
-      return names.value.filter((name) => {
-        return name.includes(search.value);
-      });
-    });
-
-    return { names, search, filteredNames };
+    return { posts, showPosts };
   }
 }
 </script>
