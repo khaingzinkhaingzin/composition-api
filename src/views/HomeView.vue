@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <div>
+    <div v-if="error">{{ error }}</div>
+    <div v-if="posts.length>0">
       <PostsList :posts="posts"></PostsList>
+    </div>
+    <div v-else>
+      loading...
     </div>
   </div>
 </template>
@@ -12,12 +16,25 @@ import { ref } from 'vue';
 export default {
   components: { PostsList },
   setup() {
-    let posts = ref([
-      {title: "post title 1", body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla exercitationem quae quod. Quos molestiae rem nam quis aperiam, cum veritatis odio necessitatibus, quae voluptatem aut. A eius aspernatur veniam tempore.", id: 1},
-      {title: "post title 2", body: "post body 2", id: 2},
-    ]);
+    let posts = ref([]);
+    let error = ref("");
 
-    return { posts };
+    let load = async () => {
+      try {
+        let response = await fetch("http://localhost:3000/posts");
+        if (response.status === 404) {
+          throw new Error("not found url");
+        }
+        let datas = await response.json();
+        
+        posts.value = datas;
+      } catch(err) {
+        error.value = err.message;
+      }
+    };
+    load();
+
+    return { posts, error };
   }
 }
 </script>
