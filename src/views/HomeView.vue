@@ -1,33 +1,27 @@
 <template>
   <div class="home">
-    <h1>Person One</h1>
-    <p>{{ personOne.name }} - {{ personOne.age }}</p>
-    <button @click="changeOne">change one</button>
-
-    <h1>Person Two</h1>
-    <p>{{ personTwo.name }} - {{ personTwo.age }}</p>
-    <button @click="changeTwo">change two</button>
+    <input type="text" v-model="search">
+    <p>Search item - {{ search }}</p>
+    <div v-for="name in filteredNames" :key="name">
+      {{ name }}
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
-
+import { computed, ref } from 'vue';
 export default {
   setup() {
-    let personOne = ref({name: "Kyaw", age: 27});
-    let changeOne = () => {
-      personOne.value.name = "CKyaw";
-    };
+    let search = ref("");
+    let names = ref(["A", "B", "C", "D"]);
 
-    let personTwo = reactive({name: "Kyaw 2", age: 27});
-    let changeTwo = () => {
-      personTwo.name = "CKyaw 2";
-    };
-    // reactive not point to value but can not use in 'string, boolean, number, (primitive value)
-    // reactive("string");
+    let filteredNames = computed(() => {
+      return names.value.filter((name) => {
+        return name.includes(search.value);
+      });
+    });
 
-    return {personOne, changeOne, personTwo, changeTwo};
+    return { names, search, filteredNames };
   }
 }
 </script>
