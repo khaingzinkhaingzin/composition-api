@@ -20,8 +20,11 @@
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 export default {
     setup() {
+        let router = useRouter();
+
         let title = ref("");
         let body = ref("");
         let tag = ref("");
@@ -48,7 +51,8 @@ export default {
                     })
                 });
 
-                
+                // redirect router to home 
+                router.push("/");
             } catch (err) {
                 console.log(err.message);
             }
