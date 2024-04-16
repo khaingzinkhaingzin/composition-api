@@ -8,7 +8,7 @@
     {
       "id": "2",
       "title": "post title 2",
-      "body": "post body 2"
+      "body": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto magnam numquam odit neque alias eaque sit reiciendis. Dolorem deserunt ullam libero quam voluptates minus magni a enim, necessitatibus, explicabo alias."
     },
     {
       "id": "3",
@@ -18,7 +18,7 @@
     {
       "id": "1a5e",
       "title": "title 4",
-      "body": "body 4",
+      "body": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto magnam numquam odit neque alias eaque sit reiciendis. Dolorem deserunt ullam libero quam voluptates minus magni a enim, necessitatibus, explicabo alias.",
       "tags": [
         "html"
       ]
