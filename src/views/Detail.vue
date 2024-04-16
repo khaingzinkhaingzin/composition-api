@@ -4,6 +4,9 @@
 		<div v-if="post" class="post">
 			<h2>{{ post.title }}</h2>
 			<p>{{ post.body }}</p>
+            <div v-for="tag in post.tags" :key="tag" class="pill">
+                {{ tag }}
+            </div>
 		</div>
 		<div v-else>
             <Spinner></Spinner>   
