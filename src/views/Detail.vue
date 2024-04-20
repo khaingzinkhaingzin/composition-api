@@ -4,9 +4,11 @@
 		<div v-if="post" class="post">
 			<h2>{{ post.title }}</h2>
 			<p>{{ post.body }}</p>
-            <div v-for="tag in post.tags" :key="tag" class="pill">
+            <!-- <div v-for="tag in post.tags" :key="tag" class="pill">
                 {{ tag }}
-            </div>
+            </div> -->
+            <button class="delete" @click="deletePost">delete</button>
+
 		</div>
 		<div v-else>
             <Spinner></Spinner>   
@@ -17,16 +19,27 @@
 <script>
 import Spinner from '../components/Spinner'
 import getPost from "../composables/getPost";
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../firebase/config"
+
 export default {
   components: { Spinner },
 	props: ["id"],
 	setup(props) {
         let route = useRoute();
+        let router = useRouter();
+
         console.log(route.params.id);
 		let { post, error, load } = getPost(props.id);
 		load();
-		return { post, error };
+
+        let deletePost = async () => {
+            await deleteDoc(doc(db, "posts", props.id));
+            router.push("/");
+        }
+
+		return { post, error, deletePost };
 	},
 };
 </script>
@@ -65,5 +78,12 @@ export default {
     display: inline-block;
     padding: 1px 5px;
     margin: 5px 3px;
+}
+button.delete {
+    margin: 30px auto;
+    background: #ff8800;
+    padding: 5px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 </style>
