@@ -21,7 +21,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
 import { db } from "../firebase/config"
 
 export default {
@@ -45,6 +45,7 @@ export default {
                 title: title.value,
                 body: body.value,
                 tags: tags.value,
+                created_at: serverTimestamp()
             };
 
             // Add a new document in collection "posts"
